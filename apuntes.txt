@@ -1,0 +1,1 @@
+En el service.js lo que hacemos es fakear el fetch, la funcion es asincrona y le damos con el setTimeOut el "tiempo de espera" que podria tener si fuera real.
