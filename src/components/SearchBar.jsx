@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useCeunsusStore } from '../store/census'
+import { useCensusStore } from '../store/census'
 
 export default function SearchBar() {
-  const filterByname = useCeunsusStore (state => state.filterByname)
+  const filterByProperty = useCensusStore (state => state.filterByProperty)
   function handleChange(e){
     const name = e.target.value
-    filterByname(name)
+    filterByProperty('name', name)
   }
     return (
       <div>

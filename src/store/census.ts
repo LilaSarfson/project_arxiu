@@ -1,33 +1,50 @@
 import {create} from 'zustand'
 import {Census} from './type'
+import {includesFunction, filterFunction} from '../utils/utils'
 interface State {
     census: Census []
     fetchCensus: ()=> Promise<void>
     filterByname: ()=>{}
-    filteredByName: Census []
+    filterByPick: ()=>{}
+    filteredData: Census []
     isLoading: boolean
     isFiltered: boolean
+    nameState: string
+    districteState: string
  }
- export const useCeunsusStore= create<State>((set, get) => {
+ export const useCensusStore= create<State>((set, get) => {
     return{
-        isLoading: false,
+        isLoading: true,
         isFiltered:false,
         fetchCensus: async ()=> {
             const res = await fetch('http://localhost:5173/src/mocks/census.json')
             const json = await res.json()
             set({census: json})
-            set({isLoading: true})
+            set({isLoading: false})
             },
 
-        filterByname: (name: string)=>{
+        filterByProperty: (property: string, name: string)=>{
+            set({nameState: name})
+            // const nameState = get().nameState
             const censusState = get().census
-            const filteredData = censusState.filter((item) =>
-            item.name.toLowerCase().includes(name.toLowerCase())
-          );
-          set({filteredByName:filteredData})
-          set({isFiltered: true})
-        }    
-        
+            const filteredStatus = get().isFiltered
+            const filteredDataState = get().filteredData
+            {filteredStatus ?
+            set({filteredData:includesFunction(filteredDataState, property, name)}) : 
+            set({filteredData:includesFunction(censusState, property, name)})
+            set({isFiltered: true})}
+            },
+
+        filterByPick: (property: string, parameter:string)=> {
+            set({districteState:parameter })
+            const censusState = get().census
+            const filteredStatus = get().isFiltered
+            const filteredDataState = get().filteredData
+            {filteredStatus  ?
+                set({filteredData:filterFunction(filteredDataState, property, parameter)}) : 
+                set({filteredData:filterFunction(censusState, property, parameter)})
+                set({isFiltered: true})}
+                },
         }
     }   
 )
