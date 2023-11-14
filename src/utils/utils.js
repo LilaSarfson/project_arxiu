@@ -10,3 +10,6 @@ export function filterFunction  (data, property, parameter) {
     return filteredData
 }
 
+export function refreshPage (){
+    location.reload();
+}

@@ -4,13 +4,15 @@ import Loading from "./components/Loading"
 import SelectModal from './components/SelectModal'
 import SearchBar from "./components/SearchBar"
 import HeaderPage from "./components/HeaderPage"
-import { useEffect } from "react"
+import {refreshPage} from '../src/utils/utils'
+import { useEffect, useState } from "react"
 function App() {
   const fetchCensus = useCensusStore (state => state.fetchCensus)
   const census = useCensusStore (state => state.census)
   const isLoading = useCensusStore (state => state.isLoading)
   const isFiltered = useCensusStore (state => state.isFiltered)
   const filteredData = useCensusStore (state => state.filteredData)
+  const [error, setError] = useState(false)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,10 +37,12 @@ return (
                 <SearchBar/>
                 <div className='flex flex-row gap-4 p-4 justify-center'>
                 <SelectModal/>
+                <button onClick={refreshPage} className="border-2 border-black p-4 w-4/6 rounded-md">Clear all</button>
                 </div>
               </div>
             </div>
         </section>
+        {/* <p className={`${filteredData.length === 0 ? 'block' : 'hidden'}`}>Vaya no se encontro nada </p> */}
         <section className='flex flex-col justify-center gap-4 bg-white p-4 w-4/6 rounded-md dark:bg-dark_secction'>
           {isLoading ? (<Loading/>) : ( isFiltered ? 
           renderCard(filteredData)

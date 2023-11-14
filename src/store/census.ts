@@ -9,13 +9,18 @@ interface State {
     filteredData: Census []
     isLoading: boolean
     isFiltered: boolean
+    isFilteredName: boolean
+    isFilteredDistricte: boolean
     nameState: string
     districteState: string
  }
  export const useCensusStore= create<State>((set, get) => {
     return{
         isLoading: true,
-        isFiltered:false,
+        isFiltered: false,
+        isFilteredName:false,
+        isFilteredDistricte: false, 
+
         fetchCensus: async ()=> {
             const res = await fetch('http://localhost:5173/src/mocks/census.json')
             const json = await res.json()
@@ -25,26 +30,27 @@ interface State {
 
         filterByProperty: (property: string, name: string)=>{
             set({nameState: name})
-            // const nameState = get().nameState
             const censusState = get().census
-            const filteredStatus = get().isFiltered
+            const filteredStatus = get().isFilteredDistricte
             const filteredDataState = get().filteredData
-            {filteredStatus ?
+            {filteredStatus ? 
             set({filteredData:includesFunction(filteredDataState, property, name)}) : 
             set({filteredData:includesFunction(censusState, property, name)})
-            set({isFiltered: true})}
+            set({isFilteredName: true})}
+            set({isFiltered:true})
             },
 
         filterByPick: (property: string, parameter:string)=> {
             set({districteState:parameter })
             const censusState = get().census
-            const filteredStatus = get().isFiltered
+            const isFilteredName = get().isFilteredName
             const filteredDataState = get().filteredData
-            {filteredStatus  ?
+            {isFilteredName  ?
                 set({filteredData:filterFunction(filteredDataState, property, parameter)}) : 
                 set({filteredData:filterFunction(censusState, property, parameter)})
-                set({isFiltered: true})}
-                },
+                set({isFiltered:true})
+                set({isFilteredDistricte: true})}
+                }  
         }
     }   
 )
