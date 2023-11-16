@@ -4,53 +4,51 @@ import {includesFunction, filterFunction} from '../utils/utils'
 interface State {
     census: Census []
     fetchCensus: ()=> Promise<void>
-    filterByname: ()=>{}
-    filterByPick: ()=>{}
     filteredData: Census []
     isLoading: boolean
-    isFiltered: boolean
-    isFilteredName: boolean
-    isFilteredDistricte: boolean
-    nameState: string
-    districteState: string
+    setFilter: ()=>{}
+    filters: {
+    districte: null,
+    name: null,
+    year: null,
+     }
  }
  export const useCensusStore= create<State>((set, get) => {
+    const URL = 'http://localhost:5173/src/mocks/census.json'
     return{
         isLoading: true,
-        isFiltered: false,
-        isFilteredName:false,
-        isFilteredDistricte: false, 
-
+        
         fetchCensus: async ()=> {
-            const res = await fetch('http://localhost:5173/src/mocks/census.json')
+            const res = await fetch(URL)
             const json = await res.json()
             set({census: json})
             set({isLoading: false})
             },
 
-        filterByProperty: (property: string, name: string)=>{
-            set({nameState: name})
-            const censusState = get().census
-            const filteredStatus = get().isFilteredDistricte
-            const filteredDataState = get().filteredData
-            {filteredStatus ? 
-            set({filteredData:includesFunction(filteredDataState, property, name)}) : 
-            set({filteredData:includesFunction(censusState, property, name)})
-            set({isFilteredName: true})}
-            set({isFiltered:true})
-            },
+        setFilter: (filterType: string, value: string) => {
+            set((state) => ({
+            filters: {
+            ...state.filters,
+            [filterType]: value,
+                     },
+                })
+            );
+        },    
 
-        filterByPick: (property: string, parameter:string)=> {
-            set({districteState:parameter })
-            const censusState = get().census
-            const isFilteredName = get().isFilteredName
-            const filteredDataState = get().filteredData
-            {isFilteredName  ?
-                set({filteredData:filterFunction(filteredDataState, property, parameter)}) : 
-                set({filteredData:filterFunction(censusState, property, parameter)})
-                set({isFiltered:true})
-                set({isFilteredDistricte: true})}
-                }  
+        applyFilters: () => {
+            const { districte, name, year } = get().filters;
+            let filteredData= [...get().census]          
+            if(districte){
+                filteredData = filterFunction(filteredData, 'districte', districte)
+            }
+            if(name){
+                filteredData = includesFunction(filteredData, 'name', name)
+            }
+            if(year){
+                filteredData = filterFunction(filteredData, 'year', year)
+            }
+            set({filteredData})
+          },
         }
     }   
 )

@@ -1,18 +1,13 @@
 import { useCensusStore } from "./store/census"
-import renderCard from '../src/constants/RenderCard'
+import renderCard from '../src/constants/render-card'
 import Loading from "./components/Loading"
 import SelectModal from './components/SelectModal'
 import SearchBar from "./components/SearchBar"
 import HeaderPage from "./components/HeaderPage"
 import {refreshPage} from '../src/utils/utils'
-import { useEffect, useState } from "react"
+import { useEffect} from "react"
 function App() {
-  const fetchCensus = useCensusStore (state => state.fetchCensus)
-  const census = useCensusStore (state => state.census)
-  const isLoading = useCensusStore (state => state.isLoading)
-  const isFiltered = useCensusStore (state => state.isFiltered)
-  const filteredData = useCensusStore (state => state.filteredData)
-  const [error, setError] = useState(false)
+  const {filteredData, isLoading, census, fetchCensus } = useCensusStore();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,7 +19,7 @@ function App() {
     fetchData();
   }, []); 
 
-return (
+  return (
   <>  
   <div className='min-h-screen relative m-auto flex flex-col gap-6 items-center bg-fondo dark:bg-dark_bg dark:text-dark_white'>
      <section className=' w-full flex flex-col gap-4'>
@@ -42,9 +37,9 @@ return (
               </div>
             </div>
         </section>
-        {/* <p className={`${filteredData.length === 0 ? 'block' : 'hidden'}`}>Vaya no se encontro nada </p> */}
+        <p className={`${filteredData === undefined || filteredData.length !=0  ? 'hidden' : 'block'}`}>Vaya no se encontro nada </p>
         <section className='flex flex-col justify-center gap-4 bg-white p-4 w-4/6 rounded-md dark:bg-dark_secction'>
-          {isLoading ? (<Loading/>) : ( isFiltered ? 
+          {isLoading ? (<Loading/>) : ( filteredData != undefined ? 
           renderCard(filteredData)
           :
           renderCard(census))

@@ -1,1 +1,1 @@
-Me busca los numero romanos independientes, en plan todoos los que tengan un I en vez de unicamente los I
+Controlar el error, de cuando no encuentra por que no exista. Lo suyo es poner un aviso y hacer un refresh
