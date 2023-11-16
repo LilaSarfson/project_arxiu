@@ -1,0 +1,1 @@
+export const ERROR_WARNING = 'Sorry, it is not in our data :('
