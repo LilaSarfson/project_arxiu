@@ -12,5 +12,8 @@ export function filterFunction  (data, property, parameter) {
 export function refreshPage (){
     location.reload();
 }
+export function UpperCaseFirsrtLetter (cadena) {
+    return cadena ? cadena.charAt(0).toUpperCase() + cadena.slice(1) : cadena;
+  }
 
 
