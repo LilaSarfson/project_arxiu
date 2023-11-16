@@ -5,6 +5,9 @@
 html, body, #app, .App, #root, #app>div {
     height: 100vh;
   }
-  h1{
+.bebas_font {
   font-family: 'Bebas Neue', sans-serif;
+}
+.wix_font{
+  font-family: 'Wix Madefor Text', sans-serif;
 }

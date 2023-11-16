@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await fetchCensus();
+       await fetchCensus();
       } catch (error) {
         console.log('vaya hay un error en el fecth')
       }
@@ -35,14 +35,14 @@ function App() {
                 <div className='flex flex-row gap-4 p-4 justify-center'>
                 <SelectModal property={FILTERS_LIST[0]} list={DISTRICTE_LIST}/>
                 <SelectModal property={FILTERS_LIST[2]} list={YEARS_LIST}/>
-                <button onClick={refreshPage} className="border-2 border-black p-4 w-4/6 rounded-md">Clear all</button>
+                <button onClick={refreshPage} className="border-2 border-black p-4 w-4/6 rounded-md    dark:border-dark_card dark:border-4 bebas_font">Clear all</button>
                 </div>
               </div>
             </div>
       </section>
-        <p className={`${filteredData === undefined || filteredData.length !=0  ? 'hidden' : 'block'}`}>Vaya no se encontro nada </p>
       <section className='flex flex-col justify-center gap-4 bg-white p-4 w-4/6 rounded-md dark:bg-dark_secction'>
         <CardHeader name={FILTERS_LIST[1]} dist={FILTERS_LIST[0]} seccion={FILTERS_LIST[3]} number={FILTERS_LIST[4]}/>
+        <p className={`${filteredData === undefined || filteredData.length !=0  ? 'hidden' : 'block'} text-center`}>Vaya no se encontro nada </p>
           {isLoading ? (<Loading/>) : ( filteredData != undefined ? 
           renderCard(filteredData)
           :

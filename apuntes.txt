@@ -1,1 +1,1 @@
-Controlar el error, de cuando no encuentra por que no exista. Lo suyo es poner un aviso y hacer un refresh
+El 'clearAll' no conserva el estado de negro/claro
