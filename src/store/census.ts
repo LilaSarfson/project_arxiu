@@ -3,15 +3,16 @@ import {Census} from './type'
 import {includesFunction, filterFunction} from '../utils/utils'
 interface State {
     census: Census []
-    fetchCensus: ()=> Promise<void>
     filteredData: Census []
-    isLoading: boolean
+    fetchCensus: ()=> Promise<void>
+    applyFilters: ()=>{}
     setFilter: ()=>{}
+    isLoading: boolean
     filters: {
-    districte: null,
-    name: null,
-    year: null,
-     }
+        districte: null,
+        name: null,
+        year: null,
+        }
  }
  export const useCensusStore= create<State>((set, get) => {
     const URL = 'http://localhost:5173/src/mocks/census.json'
@@ -47,7 +48,7 @@ interface State {
             if(year){
                 filteredData = filterFunction(filteredData, 'year', year)
             }
-            set({filteredData})
+            set({filteredData:filteredData})
           },
         }
     }   

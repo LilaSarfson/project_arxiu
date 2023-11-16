@@ -1,4 +1,3 @@
-
 export function includesFunction  (data, property, name) {
     const filteredData = data.filter((item) =>
     item[property].toLowerCase().includes(name.toLowerCase()))
@@ -13,3 +12,5 @@ export function filterFunction  (data, property, parameter) {
 export function refreshPage (){
     location.reload();
 }
+
+
