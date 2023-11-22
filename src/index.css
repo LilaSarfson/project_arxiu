@@ -4,6 +4,8 @@
 
 html, body, #app, .App, #root, #app>div {
     height: 100vh;
+    margin: 0;
+    padding: 0;
   }
 .bebas_font {
   font-family: 'Bebas Neue', sans-serif;
