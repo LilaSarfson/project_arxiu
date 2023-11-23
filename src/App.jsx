@@ -44,16 +44,18 @@ function App() {
               </div>
             </div>
       </section>
-      <section className='flex flex-col justify-center gap-4 bg-white p-4 w-4/6 rounded-md dark:bg-dark_secction'>
-        <CardHeader name={FILTERS_LIST[1]} dist={FILTERS_LIST[0]} seccion={FILTERS_LIST[3]} number={FILTERS_LIST[4]}/>
-        <p className={`${filteredData === undefined || filteredData.length !=0  ? 'hidden' : 'block'} text-center`}>{ERROR_WARNING}</p>
-          {isLoading ? (<Loading/>) : ( filteredData != undefined ? 
-          renderCard(filteredData)
-          :
-          renderCard(census))
-          }
-       <Footer/>
-       </section>
+      <section className='bg-white rounded-md dark:bg-dark_secction w-4/6'>
+        <div className="flex flex-col justify-center gap-4 p-4">
+          <CardHeader/>
+          <p className={`${filteredData === undefined || filteredData.length !=0  ? 'hidden' : 'block'} text-center`}>{ERROR_WARNING}</p>
+            {isLoading ? (<Loading/>) : ( filteredData != undefined ? 
+            renderCard(filteredData)
+            :
+            renderCard(census))
+            }
+       </div>
+        <Footer/>
+        </section>
   </div>
   </>
   )

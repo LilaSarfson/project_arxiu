@@ -4,7 +4,7 @@ const renderCards = (data) => {
       <Card
         key={index}
         name={item.name}
-        distrito={item.districte}
+        dist={item.districte}
         seccion={item.seccion}
         numeroI={item.numberI}
         numeroF={item.numberF}

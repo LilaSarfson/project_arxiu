@@ -7,6 +7,7 @@ interface State {
     fetchCensus: ()=> Promise<void>
     applyFilters: ()=>{}
     setFilter: ()=>{}
+    refreshPage: ()=>{}
     isLoading: boolean
     filters: {
         districte: null,
@@ -30,7 +31,7 @@ interface State {
             set((state) => ({
             filters: {
             ...state.filters,
-            [filterType]: value,
+            [filterType]: value !== undefined ? value : null,
                      },
                 })
             );
@@ -49,7 +50,7 @@ interface State {
                 filteredData = filterFunction(filteredData, 'year', year)
             }
             set({filteredData:filteredData})
-          },
+          }
         }
     }   
 )

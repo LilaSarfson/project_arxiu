@@ -1,20 +1,13 @@
 import React, { useState } from 'react';
-// import sun from '../../assets/sun.png'
-// import moon from '../../assets/moon.png'
-
+import useSaveLigthsMode from '../hooks/useSaveLigthsMode';
  export default function DarkModeToggle (){  
-    const [darkMode, setDarkMode] = useState(false);
-
-    const toggleDarkMode = () => {
-      setDarkMode(!darkMode);
-      document.documentElement.classList.toggle('dark', !darkMode);
-    };
+  const [darkMode, setDarkMode] = useState(localStorage.getItem("dark") === "activated");
+  useSaveLigthsMode(darkMode)
   return (
       <button id='toggle'
-        onClick={toggleDarkMode}>
-        {darkMode ? <icon>🌑</icon> : <icon>🌕
+        onClick={() => setDarkMode(!darkMode)}>
+        {darkMode ? <icon>🌕</icon> : <icon>🌑
         </icon>  }     
-         {/* // <img className='w-5' src={sun}/> : <img className='w-5' src={moon}/>} */}
       </button>
 
   );
