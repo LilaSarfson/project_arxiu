@@ -1,5 +1,5 @@
 import { useCensusStore } from "./store/census"
-import renderCard from '../src/constants/render-card'
+import renderCard from '../src/utils/render-card'
 import Loading from "./components/Loading"
 import SelectModal from './components/SelectModal'
 import SearchBar from "./components/SearchBar"
@@ -28,7 +28,7 @@ function App() {
   <>  
   <div className='min-h-screen relative m-auto flex flex-col gap-6 items-center bg-fondo dark:bg-dark_bg dark:text-dark_white'>
      <section className=' w-full flex flex-col gap-4'>
-            <div className='w-4/6 m-auto flex flex-col gap-8'>
+            <div className=' w-4/6 m-auto flex flex-col gap-8'>
               <header className='w-full mt-8'>
               <Links/>
               <HeaderPage
