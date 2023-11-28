@@ -7,8 +7,8 @@ import HeaderPage from "./components/HeaderPage"
 import CardHeader from './components/CarHeader'
 import Links from "./components/Links"
 import Footer from "./components/Footer"
+import WarningMsg from './components/WarningMsg'
 import {DISTRICTE_LIST, YEARS_LIST, FILTERS_LIST} from '../src/constants/selector-data'
-import {ERROR_WARNING} from '../src/constants/constants'
 import {refreshPage} from '../src/utils/utils'
 import { useEffect} from "react"
 function App() {
@@ -47,7 +47,8 @@ function App() {
       <section className='bg-white rounded-md dark:bg-dark_secction w-4/6'>
         <div className="flex flex-col justify-center gap-4 p-4">
           <CardHeader/>
-          <p className={`${filteredData === undefined || filteredData.length !=0  ? 'hidden' : 'block'} text-center`}>{ERROR_WARNING}</p>
+          <WarningMsg
+          filteredData={filteredData}/> 
             {isLoading ? (<Loading/>) : ( filteredData != undefined ? 
             renderCard(filteredData)
             :
